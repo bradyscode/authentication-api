@@ -17,7 +17,6 @@ The initial commit, this contains the two original endpoints of "/CreateUser" & 
 Creates a new user in the database.
 ### Request Body
 ![RequestBody](images/CreateUserRequestBody.png)
-The permission int refers to the enum of Permissions
 ### Response Body
 ![ResponseBody](images/CreateUserResponseBody.png)
 ## /AuthenticateUser
