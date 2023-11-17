@@ -7,7 +7,7 @@
     {
         public Password()
         {
-
+            //here for when pulling and parsing from db
         }
         public Password(byte[] hashValue, string salt)
         {
