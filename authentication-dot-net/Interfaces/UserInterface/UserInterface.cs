@@ -6,7 +6,7 @@ namespace authentication_dot_net.Interfaces.UserInterface
 {
     public class UserInterface : IUserInterface
     {
-        public IActionResult CreateUser(User user)
+        public IHttpActionResult CreateUser(User user)
         {
             throw new NotImplementedException();
         }
@@ -31,17 +31,7 @@ namespace authentication_dot_net.Interfaces.UserInterface
             throw new NotImplementedException();
         }
 
-        public IActionResult ResetPassword(int id, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        IHttpActionResult IUserInterface.CreateUser(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        IHttpActionResult IUserInterface.ResetPassword(int id, string password)
+        public IHttpActionResult ResetPassword(int id, string password)
         {
             throw new NotImplementedException();
         }
