@@ -3,6 +3,8 @@ using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Http;
 
 namespace authentication_dot_net.Interfaces.UserInterface
@@ -14,6 +16,43 @@ namespace authentication_dot_net.Interfaces.UserInterface
         public UserInterface(IOptions<DatabaseOptions> dbOptions)
         {
             _dbOptions = dbOptions;
+        }
+
+        public async Task<bool> AuthenticateUser(string username, string password)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_dbOptions.Value.Database))
+                {
+                    connection.Open();
+
+                    var sql = $"SELECT Salt, HashValue FROM Users WHERE Username = '{username}';";
+
+
+                    var saltAndHash = await connection.QueryFirstAsync<Password>(sql);
+                    var hashedPasssword = HashPassword(saltAndHash, password);
+                    if (hashedPasssword.HashValue.SequenceEqual(saltAndHash.HashValue))
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private Password HashPassword(Password saltAndHash, string password)
+        {
+            var salt = saltAndHash.Salt;
+
+            //generate hash
+            var mySHA256 = SHA256.Create();
+            var inputBytes = Encoding.UTF8.GetBytes(password + salt);
+            var hashValue = mySHA256.ComputeHash(inputBytes);
+
+            return new Password(hashValue, salt);
         }
 
         public object CreateUser(User user)

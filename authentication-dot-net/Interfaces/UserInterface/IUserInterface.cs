@@ -13,5 +13,6 @@ namespace authentication_dot_net.Interfaces.UserInterface
         object CreateUser(User user);
         object SetPermission(int id, int permission);
         bool UsernameExists(string username);
+        Task<bool> AuthenticateUser(string username, string password);
     }
 }

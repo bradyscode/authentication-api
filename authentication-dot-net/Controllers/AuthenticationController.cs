@@ -34,9 +34,9 @@ namespace authentication_dot_net.Controllers
 
 
         [HttpGet("/AuthenticateUser")]
-        public object AuthenticateUser(string username, string password)
+        public async Task<bool> AuthenticateUserAsync(string username, string password)
         {
-
+            return await _userInterface.AuthenticateUser(username, password);
         }
     }
 }

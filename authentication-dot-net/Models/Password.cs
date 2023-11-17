@@ -5,6 +5,10 @@
     /// </summary>
     public class Password
     {
+        public Password()
+        {
+
+        }
         public Password(byte[] hashValue, string salt)
         {
             HashValue = hashValue;
