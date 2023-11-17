@@ -8,6 +8,13 @@ namespace authentication_dot_net.Models
     {
         private static readonly Regex symbolRegex = new Regex("[!@#$%^&*()_+-=[]{};':\",./<>?]+");
 
+        public User(string username, string password)
+        {
+            Username = username;
+            Password = HashPassword(password);
+            Permission = Permission.USER;
+        }
+
         public User(string username, string password, int permission)
         {
             Username = username;

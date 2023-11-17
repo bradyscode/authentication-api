@@ -18,7 +18,14 @@ namespace authentication_dot_net.Controllers
         [HttpGet("/CreateUser")]
         public object CreateUser(string username, string password, int permission)
         {
-            var user = new User(username, password, permission);
+            User user;
+            if(permission!=null)
+            {
+                user = new User(username, password, permission);
+            }else
+            {
+                user = new User(username, password);
+            }
             var returnValue = _userInterface.CreateUser(user);
             return returnValue;
         }
