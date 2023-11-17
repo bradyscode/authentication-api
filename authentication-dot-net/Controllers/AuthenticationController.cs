@@ -1,4 +1,5 @@
-﻿using authentication_dot_net.Interfaces.UserInterface;
+﻿using authentication_dot_net.Interfaces;
+using authentication_dot_net.Interfaces.UserInterface;
 using authentication_dot_net.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
@@ -18,6 +19,7 @@ namespace authentication_dot_net.Controllers
         [HttpGet("/CreateUser")]
         public object CreateUser(string username, string password, int permission)
         {
+            if (_userInterface.UsernameExists(username)) throw new Exception("User already exists");
             User user;
             if(permission!=null)
             {
@@ -28,6 +30,13 @@ namespace authentication_dot_net.Controllers
             }
             var returnValue = _userInterface.CreateUser(user);
             return returnValue;
+        }
+
+
+        [HttpGet("/AuthenticateUser")]
+        public object AuthenticateUser(string username, string password)
+        {
+
         }
     }
 }

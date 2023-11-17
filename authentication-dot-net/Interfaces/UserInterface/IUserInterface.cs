@@ -12,5 +12,6 @@ namespace authentication_dot_net.Interfaces.UserInterface
         object ResetPassword(int id, string password);
         object CreateUser(User user);
         object SetPermission(int id, int permission);
+        bool UsernameExists(string username);
     }
 }

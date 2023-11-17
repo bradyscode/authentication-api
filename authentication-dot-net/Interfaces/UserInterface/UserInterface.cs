@@ -70,5 +70,21 @@ namespace authentication_dot_net.Interfaces.UserInterface
         {
             throw new NotImplementedException();
         }
+
+        public bool UsernameExists(string username)
+        {
+            using (var connection = new SqlConnection(_dbOptions.Value.Database))
+            {
+                connection.Open();
+
+                var sql = "SELECT COUNT(1) FROM Users WHERE Username = @Username";
+                var parameters = new DynamicParameters();
+                parameters.Add("@Username", username);
+
+                int affectedRows = connection.Execute(sql, parameters);
+                return affectedRows > 0;
+            }
+        }
+
     }
 }
