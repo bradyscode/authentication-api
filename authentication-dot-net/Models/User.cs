@@ -20,10 +20,7 @@ namespace authentication_dot_net.Models
 
         private Password HashPassword(string password)
         {
-            if (!IsPasswordComplexEnough(password))
-            {
-                throw new Exception("Password is not complex enough");
-            }
+            IsPasswordComplexEnough(password)
             //salt generation
             var salt = Guid.NewGuid().ToString();
             var saltedPassword = password + salt;
@@ -42,27 +39,27 @@ namespace authentication_dot_net.Models
         {
             if (password.Length < 8)
             {
-                return false;
+                throw new Exception("Password is less than 8 characters");
             }
 
             if (!password.Any(char.IsDigit))
             {
-                return false;
+                throw new Exception("Password does not contain a digit");
             }
 
             if (!password.Any(char.IsUpper))
             {
-                return false;
+                throw new Exception("Password does not contain an uppercase letter");
             }
 
             if (!password.Any(char.IsLower))
             {
-                return false;
+                throw new Exception("Password does not contain a lowercase letter");
             }
 
             if (!password.Any(char.IsSymbol))
             {
-                return false;
+                throw new Exception("Password does not contain a special character");
             }
 
             return true;
