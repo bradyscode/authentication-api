@@ -1,5 +1,6 @@
 ﻿using authentication_dot_net.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Web.Http;
 
 namespace authentication_dot_net.Interfaces.UserInterface
 {
@@ -31,6 +32,16 @@ namespace authentication_dot_net.Interfaces.UserInterface
         }
 
         public IActionResult ResetPassword(int id, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        IHttpActionResult IUserInterface.CreateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        IHttpActionResult IUserInterface.ResetPassword(int id, string password)
         {
             throw new NotImplementedException();
         }
