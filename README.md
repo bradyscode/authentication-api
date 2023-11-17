@@ -35,6 +35,17 @@ An authentication API typically employs various security measures to protect use
 # Authentication
 When a user attempts to log in to the C# REST API, they provide their username and password. The API first retrieves the user's salt from the database. Then, it hashes the input password using the same hashing algorithm and salt combination that was used when the password was originally stored. Finally, the API compares the computed hash to the stored hash. If the hashes match, the user is authenticated and granted access to the API. This process ensures that passwords are never stored in plain text and that even if an attacker gains access to the database, they will not be able to recover the user's password.
 
+# Setup
+## Prerequisites
+- [Microsoft SQL Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16)
+## Database Setup
+Run the following query in your database to follow the API.
+![SqlQueryForDB](images/SQLQUERYAUTHENTICATION.png)
+## Configuration
+If you are running this API locally or on your own cloud environment you need to edit the configuration, in *appsettings.json*, you will want to change the connection string to your database table.
+![ConnectionString](images/connectionString.png)
+## Troubleshooting
+For any troubleshooting needs please feel free to shoot me an email bradystohler15@gmail.com or go to my website and use the "Contact Me" section.
 <!-- TOC --><a name="versioning"></a>
 # Versioning
 <!-- TOC --><a name="100"></a>
