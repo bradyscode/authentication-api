@@ -9,7 +9,7 @@ namespace authentication_dot_net.Interfaces.UserInterface
         string GetUserName(int id);
         Password GetPassword(int id);
         Permission GetPermission(int id);
-        IHttpActionResult ResetPassword(int id, string password);
-        IHttpActionResult CreateUser(User user);
+        object ResetPassword(int id, string password);
+        object CreateUser(User user);
     }
 }

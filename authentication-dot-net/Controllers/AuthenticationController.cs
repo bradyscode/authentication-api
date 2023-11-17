@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using authentication_dot_net.Interfaces.UserInterface;
+using authentication_dot_net.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -6,22 +8,19 @@ namespace authentication_dot_net.Controllers
 {
     public class AuthenticationController : Controller
     {
-        [HttpGet("/verifypassword")]
-        public object Index(string password)
+        private IUserInterface _userInterface;
+
+        public AuthenticationController(IUserInterface userInterface)
         {
-            //salt generation
-            var salt = Guid.NewGuid().ToString();
-            var saltedPassword = password + salt;
+            _userInterface = userInterface;
+        }
 
-            //generate hash
-            var mySHA256 = SHA256.Create();
-            var inputBytes = Encoding.UTF8.GetBytes(password + salt);
-            var hashValue = mySHA256.ComputeHash(inputBytes);
-
-            //store salt and hashedValue
-            //when user enters password it will look in db at salt, add it to the salt and compute then compare. Makes sense
-
-            return hashValue;
+        [HttpGet("/CreateUser")]
+        public object CreateUser(string username, string password, int permission)
+        {
+            var user = new User(username, password, permission);
+            var returnValue = _userInterface.CreateUser(user);
+            return returnValue;
         }
     }
 }
