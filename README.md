@@ -1,7 +1,12 @@
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
-# Table Of Contents
+
 - [Summary](#authentication-api)
 - [Authentication](#authentication)
+- [Setup](#setup)
+   * [Prerequisites](#prerequisites)
+   * [Database Setup](#database-setup)
+   * [Configuration](#configuration)
+   * [Troubleshooting](#troubleshooting)
 - [Versioning](#versioning)
    * [1.0.0](#100)
 - [Endpoints](#endpoints)
@@ -22,6 +27,7 @@
    * [Phase 2: Enhanced Security and Integration](#phase-2-enhanced-security-and-integration)
    * [Phase 3: Scalability and Performance Optimization](#phase-3-scalability-and-performance-optimization)
 
+
 <!-- TOC end -->
 
 <!-- TOC --><a name="authentication-api"></a>
@@ -35,15 +41,20 @@ An authentication API typically employs various security measures to protect use
 # Authentication
 When a user attempts to log in to the C# REST API, they provide their username and password. The API first retrieves the user's salt from the database. Then, it hashes the input password using the same hashing algorithm and salt combination that was used when the password was originally stored. Finally, the API compares the computed hash to the stored hash. If the hashes match, the user is authenticated and granted access to the API. This process ensures that passwords are never stored in plain text and that even if an attacker gains access to the database, they will not be able to recover the user's password.
 
+<!-- TOC --><a name="setup"></a>
 # Setup
+<!-- TOC --><a name="prerequisites"></a>
 ## Prerequisites
 - [Microsoft SQL Management Studio](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16)
+<!-- TOC --><a name="database-setup"></a>
 ## Database Setup
 Run the following query in your database to follow the API.
 ![SqlQueryForDB](images/SQLQUERYAUTHENTICATION.png)
+<!-- TOC --><a name="configuration"></a>
 ## Configuration
 If you are running this API locally or on your own cloud environment you need to edit the configuration, in *appsettings.json*, you will want to change the connection string to your database table.
 ![ConnectionString](images/connectionString.png)
+<!-- TOC --><a name="troubleshooting"></a>
 ## Troubleshooting
 For any troubleshooting needs please feel free to shoot me an email bradystohler15@gmail.com or go to my website and use the "Contact Me" section.
 <!-- TOC --><a name="versioning"></a>
@@ -122,45 +133,64 @@ This endpoint authenticates the username and password to the hash and salt in th
 - Consider cloud-based deployment: Explore cloud-based hosting solutions to scale the API infrastructure and handle increased traffic.
 
 
+<!-- TOC --><a name="authentication-api-1"></a>
 # Authentication API
 
 An authentication API is a crucial component of any secure application, providing a mechanism for users to prove their identity and access authorized resources. It typically involves a user registration process where users create an account and provide credentials such as a username and password. Upon subsequent login attempts, users submit their credentials to the API, which validates them against the stored information. If the credentials are valid, the API issues an authentication token, which serves as a proof of identity for the user during subsequent interactions with the application. This token allows the user to access authorized resources without having to repeatedly provide their credentials, ensuring a seamless and secure user experience.
 
 An authentication API typically employs various security measures to protect user credentials and prevent unauthorized access. These measures may include password hashing, token expiration, and secure communication protocols. By implementing robust authentication mechanisms, applications can safeguard sensitive user data and maintain a high level of security.
 
+<!-- TOC --><a name="authentication-1"></a>
 # Authentication
 When a user attempts to log in to the C# REST API, they provide their username and password. The API first retrieves the user's salt from the database. Then, it hashes the input password using the same hashing algorithm and salt combination that was used when the password was originally stored. Finally, the API compares the computed hash to the stored hash. If the hashes match, the user is authenticated and granted access to the API. This process ensures that passwords are never stored in plain text and that even if an attacker gains access to the database, they will not be able to recover the user's password.
 
+<!-- TOC --><a name="versioning-1"></a>
 # Versioning
+<!-- TOC --><a name="100-1"></a>
 ## 1.0.0
 The initial commit, this contains the two original endpoints of "/CreateUser" & "/AuthenticateUser"
 
+<!-- TOC --><a name="endpoints-1"></a>
 # Endpoints
+<!-- TOC --><a name="createuser-1"></a>
 ## /CreateUser
+<!-- TOC --><a name="description-2"></a>
 ### *Description:*
 Creates a new user in the database.
+<!-- TOC --><a name="request-body-2"></a>
 ### Request Body
 ![RequestBody](images/CreateUserRequestBody.png)
+<!-- TOC --><a name="response-body-2"></a>
 ### Response Body
 ![ResponseBody](images/CreateUserResponseBody.png)
+<!-- TOC --><a name="authenticateuser-1"></a>
 ## /AuthenticateUser
+<!-- TOC --><a name="description-3"></a>
 ### *Description:*
 This endpoint authenticates the username and password to the hash and salt in the database
+<!-- TOC --><a name="request-body-3"></a>
 ### Request Body
 ![RequestBody](images/AuthenticateUserRequestBody.png)
+<!-- TOC --><a name="response-body-3"></a>
 ### Response Body
 ![ResponseBody](images/AuthenticateUserResponseBody.png)
 
+<!-- TOC --><a name="data-models-1"></a>
 # Data Models
+<!-- TOC --><a name="user-1"></a>
 ## User
 ![UserModel](images/UserModel.png)
+<!-- TOC --><a name="password-1"></a>
 ## Password
 ![PasswordModel](images/PasswordModel.png)
+<!-- TOC --><a name="permission-enum-1"></a>
 ## Permission Enum
 ![PermissionEnum](images/PermissionEnum.png)
 
+<!-- TOC --><a name="authentication-api-roadmap-1"></a>
 # Authentication API Roadmap
 
+<!-- TOC --><a name="phase-1-core-authentication-functionality-1"></a>
 ## Phase 1: Core Authentication Functionality
 
 - <del>Establish user authentication mechanisms: Implement user registration, login,</del> and logout endpoints.
@@ -171,12 +201,14 @@ This endpoint authenticates the username and password to the hash and salt in th
 
 - Enable role-based access control (RBAC): Define user roles and permissions to restrict access to specific API endpoints based on user authorization levels.
 
+<!-- TOC --><a name="phase-2-enhanced-security-and-integration-1"></a>
 ## Phase 2: Enhanced Security and Integration
 
 - Adopt OAuth 2.0 protocol: Integrate with external OAuth providers to enable seamless authentication and authorization for third-party applications.
 
 - Support OpenID Connect (OIDC): Implement OpenID Connect as an identity layer to provide user profile data and claims for personalized experiences.
 
+<!-- TOC --><a name="phase-3-scalability-and-performance-optimization-1"></a>
 ## Phase 3: Scalability and Performance Optimization
 
 - Implement caching mechanisms: Utilize caching strategies to improve API response times and reduce database load.
