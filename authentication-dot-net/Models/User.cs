@@ -20,7 +20,7 @@ namespace authentication_dot_net.Models
 
         private Password HashPassword(string password)
         {
-            IsPasswordComplexEnough(password)
+            IsPasswordComplexEnough(password);
             //salt generation
             var salt = Guid.NewGuid().ToString();
             var saltedPassword = password + salt;
