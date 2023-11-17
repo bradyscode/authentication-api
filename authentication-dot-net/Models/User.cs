@@ -1,10 +1,12 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace authentication_dot_net.Models
 {
     public class User
     {
+        private static readonly Regex symbolRegex = new Regex("[!@#$%^&*()_+-=[]{};':\",./<>?]+");
 
         public User(string username, string password, int permission)
         {
@@ -34,32 +36,56 @@ namespace authentication_dot_net.Models
             //when user enters password it will look in db at salt, add it to the salt and compute then compare. Makes sense
             return new Password(hashValue, salt);
         }
-
         private bool IsPasswordComplexEnough(string password)
         {
             if (password.Length < 8)
             {
-                throw new Exception("Password is less than 8 characters");
+                throw new ArgumentException("Password must be at least 8 characters long.");
             }
 
-            if (!password.Any(char.IsDigit))
+            bool hasDigit = false;
+            bool hasUppercase = false;
+            bool hasLowercase = false;
+            bool hasSpecialCharacter = false;
+
+            foreach (char character in password)
             {
-                throw new Exception("Password does not contain a digit");
+                if (char.IsDigit(character))
+                {
+                    hasDigit = true;
+                }
+                else if (char.IsUpper(character))
+                {
+                    hasUppercase = true;
+                }
+                else if (char.IsLower(character))
+                {
+                    hasLowercase = true;
+                }
+                else if (!char.IsLetterOrDigit(character))
+                {
+                    hasSpecialCharacter = true;
+                }
             }
 
-            if (!password.Any(char.IsUpper))
+            if (!hasDigit)
             {
-                throw new Exception("Password does not contain an uppercase letter");
+                throw new ArgumentException("Password must contain at least one digit.");
             }
 
-            if (!password.Any(char.IsLower))
+            if (!hasUppercase)
             {
-                throw new Exception("Password does not contain a lowercase letter");
+                throw new ArgumentException("Password must contain at least one uppercase letter.");
             }
 
-            if (!password.Any(char.IsSymbol))
+            if (!hasLowercase)
             {
-                throw new Exception("Password does not contain a special character");
+                throw new ArgumentException("Password must contain at least one lowercase letter.");
+            }
+
+            if (!hasSpecialCharacter)
+            {
+                throw new ArgumentException("Password must contain at least one special character.");
             }
 
             return true;
