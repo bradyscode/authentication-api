@@ -2,6 +2,7 @@
 using authentication_dot_net.Interfaces.UserInterface;
 using authentication_dot_net.Models;
 using Microsoft.AspNetCore.Mvc;
+using Serilog.Core;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -10,15 +11,18 @@ namespace authentication_dot_net.Controllers
     public class AuthenticationController : Controller
     {
         private IUserInterface _userInterface;
+        private ILogger<AuthenticationController> _logger;
 
-        public AuthenticationController(IUserInterface userInterface)
+        public AuthenticationController(IUserInterface userInterface, ILogger<AuthenticationController> logger)
         {
             _userInterface = userInterface;
+            _logger = logger;
         }
 
-        [HttpGet("/CreateUser")]
+        [HttpPost("/CreateUser")]
         public object CreateUser(string username, string password, int permission)
         {
+            _logger.LogInformation("Entering /CreateUser");
             if (_userInterface.UsernameExists(username)) throw new Exception("User already exists");
             User user;
             if(permission!=null)
