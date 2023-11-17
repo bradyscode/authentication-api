@@ -6,10 +6,9 @@ namespace authentication_dot_net.Controllers
 {
     public class AuthenticationController : Controller
     {
-        [HttpGet("/getHashValue")]
+        [HttpGet("/verifypassword")]
         public object Index(string password)
         {
-
             //salt generation
             var salt = Guid.NewGuid().ToString();
             var saltedPassword = password + salt;
