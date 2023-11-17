@@ -65,5 +65,10 @@ namespace authentication_dot_net.Interfaces.UserInterface
         {
             throw new NotImplementedException();
         }
+
+        public object SetPermission(int id, int permission)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
