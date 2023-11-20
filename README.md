@@ -67,7 +67,7 @@ In the *appsettings.json* file there is a section for JWT configuration, you wil
 - Key: In the JSON Web Token (JWT) standard, the "kid" (key ID) claim is a string that indicates the key that was used to digitally sign the JWT. This is used to verify the authenticity and integrity of the JWT, and to prevent JWT token abuse
 <br/>
 
-Notes: The key used in this tutorial are randomly generated for example purposes, Do not use this for the production environment.
+Notes: The key used in this documentation is randomly generated for example purposes, Do not use this for the production environment.
 ![JWTSettings](images/jwtToken.png)
 ## Troubleshooting
 For any troubleshooting needs please feel free to shoot me an email bradystohler15@gmail.com or go to my website and use the "Contact Me" section.
