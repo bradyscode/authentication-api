@@ -12,8 +12,8 @@ The unit tests provided for the `AuthenticationController` cover the following a
 - Verifies that the `CreateUser` method returns a `CreatedResult` when the provided user data is valid and the user is successfully created.
 ### AuthenticateUser:
 
-Verifies that the `AuthenticateUser` method returns an `OkObjectResult` with a valid JSON Web Token (JWT) when the provided credentials are valid.
-Verifies that the `AuthenticateUser` method returns an `UnauthorizedResult` when the provided credentials are invalid.
+- Verifies that the `AuthenticateUser` method returns an `OkObjectResult` with a valid JSON Web Token (JWT) when the provided credentials are valid.
+- Verifies that the `AuthenticateUser` method returns an `UnauthorizedResult` when the provided credentials are invalid.
 
 ## Benefits of Unit Tests
 Unit tests provide several benefits to the software development process:
