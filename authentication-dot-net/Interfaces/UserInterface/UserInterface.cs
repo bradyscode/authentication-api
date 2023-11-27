@@ -2,6 +2,7 @@
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,17 +25,23 @@ namespace authentication_dot_net.Interfaces.UserInterface
             {
                 using (var connection = new SqlConnection(_dbOptions.Value.Database))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
 
-                    var sql = $"SELECT Salt, HashValue FROM Users WHERE Username = '{username}';";
+                    var sql = "SELECT Salt, HashValue FROM Users WHERE Username = @Username";
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@Username", username);
 
+                    var saltAndHash = await connection.QueryFirstAsync<Password>(sql, parameters);
+                    var hashedPassword = HashPassword(saltAndHash, password);
 
-                    var saltAndHash = await connection.QueryFirstAsync<Password>(sql);
-                    var hashedPasssword = HashPassword(saltAndHash, password);
-                    if (hashedPasssword.HashValue.SequenceEqual(saltAndHash.HashValue))
+                    if (hashedPassword.HashValue.SequenceEqual(saltAndHash.HashValue))
+                    {
                         return true;
+                    }
                     else
+                    {
                         return false;
+                    }
                 }
             }
             catch (Exception ex)
@@ -61,7 +68,7 @@ namespace authentication_dot_net.Interfaces.UserInterface
             {
                 using (var connection = new SqlConnection(_dbOptions.Value.Database))
                 {
-                    connection.Open();
+                    connection.OpenAsync();
 
                     var sql = "INSERT INTO Users (Username, Salt, HashValue, Permission) VALUES (@Username, @Salt, @HashValue, @Permission)";
                     var parameters = new DynamicParameters();
