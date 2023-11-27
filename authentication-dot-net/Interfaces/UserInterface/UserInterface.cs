@@ -68,7 +68,7 @@ namespace authentication_dot_net.Interfaces.UserInterface
             {
                 using (var connection = new SqlConnection(_dbOptions.Value.Database))
                 {
-                    connection.OpenAsync();
+                    connection.Open();
 
                     var sql = "INSERT INTO Users (Username, Salt, HashValue, Permission) VALUES (@Username, @Salt, @HashValue, @Permission)";
                     var parameters = new DynamicParameters();
