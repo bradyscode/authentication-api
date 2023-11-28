@@ -1,7 +1,9 @@
 using authentication_dot_net.Interfaces.UserInterface;
+using authentication_dot_net.Middleware;
 using authentication_dot_net.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
@@ -73,5 +75,8 @@ IWebHostEnvironment environment = app.Environment;
 //end jwt auth stuff
 
 app.MapControllers();
+var options = app.Services.GetService<IOptions<DatabaseOptions>>();
+var dbm = new DatabaseMiddleware(options);
+dbm.CheckDatabaseExistsAndCreateDatabase();
 
 app.Run();

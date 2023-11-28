@@ -1,4 +1,5 @@
-﻿using authentication_dot_net.Models;
+﻿using authentication_dot_net.Middleware;
+using authentication_dot_net.Models;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
