@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "authentication-dot-net", "authentication-dot-net\authentication-dot-net.csproj", "{BF9DCFEB-60D0-40BC-A816-853DFFE7679A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{3812E422-2FCC-48FC-BB1D-8777A4260DC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{3812E422-2FCC-48FC-BB1D-8777A4260DC4}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3B6C6D89-B0B1-409E-A929-0DF505B01305}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3812E422-2FCC-48FC-BB1D-8777A4260DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3812E422-2FCC-48FC-BB1D-8777A4260DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3812E422-2FCC-48FC-BB1D-8777A4260DC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B6C6D89-B0B1-409E-A929-0DF505B01305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B6C6D89-B0B1-409E-A929-0DF505B01305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B6C6D89-B0B1-409E-A929-0DF505B01305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B6C6D89-B0B1-409E-A929-0DF505B01305}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

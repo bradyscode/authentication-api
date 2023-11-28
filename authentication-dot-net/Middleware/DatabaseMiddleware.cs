@@ -47,7 +47,7 @@ namespace authentication_dot_net.Middleware
             using (var connection = new SqlConnection(connectionString))
             {
                 var result = connection.QuerySingleOrDefault<bool>($"SELECT 1 FROM sys.databases WHERE name = @databaseName", new { databaseName });
-                return result != null;
+                return result;
             }
         }
         private bool TableExists(string connectionString, string tableName)
