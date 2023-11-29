@@ -98,7 +98,13 @@ In the _appsettings.json_ file there is a section for JWT configuration, you wil
   <br/>
 
 Notes: The key used in this documentation is randomly generated for example purposes, Do not use this for the production environment.
-![JWTSettings](images/jwtToken.png)
+```json
+  "Jwt": {
+    "Issuer": "Issuer",
+    "Audience": "Audience",
+    "Key": "bd1a1ccf8095037f361a4d351e7c0de65f0776bfc2f478ea8d312c763bb6caca"
+  }
+```
 
 ## Troubleshooting
 
