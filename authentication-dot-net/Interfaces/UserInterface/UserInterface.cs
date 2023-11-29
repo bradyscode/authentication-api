@@ -1,4 +1,6 @@
-﻿using authentication_dot_net.Models;
+﻿
+using authentication_dot_net.Models;
+using authentication_dot_net.Services;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -13,17 +15,19 @@ namespace authentication_dot_net.Interfaces.UserInterface
     public class UserInterface : IUserInterface
     {
         private IOptions<DatabaseOptions> _dbOptions;
+        private ConnectionStringBuilder _connectionStringBuilder;
 
         public UserInterface(IOptions<DatabaseOptions> dbOptions)
         {
             _dbOptions = dbOptions;
+            _connectionStringBuilder = new ConnectionStringBuilder(dbOptions);
         }
 
         public async Task<bool> AuthenticateUser(string username, string password)
         {
             try
             {
-                using (var connection = new SqlConnection(_dbOptions.Value.Database))
+                using (var connection = new SqlConnection(_connectionStringBuilder.BuildConnectionString()))
                 {
                     await connection.OpenAsync();
 
@@ -66,7 +70,7 @@ namespace authentication_dot_net.Interfaces.UserInterface
         {
             try
             {
-                using (var connection = new SqlConnection(_dbOptions.Value.Database))
+                using (var connection = new SqlConnection(_connectionStringBuilder.BuildConnectionString()))
                 {
                     connection.Open();
 
