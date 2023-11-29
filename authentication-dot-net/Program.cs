@@ -1,6 +1,6 @@
 using authentication_dot_net.Interfaces.UserInterface;
-using authentication_dot_net.Middleware;
 using authentication_dot_net.Models;
+using authentication_dot_net.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
@@ -76,7 +76,7 @@ IWebHostEnvironment environment = app.Environment;
 
 app.MapControllers();
 var options = app.Services.GetService<IOptions<DatabaseOptions>>();
-var dbm = new DatabaseMiddleware(options);
+var dbm = new DatabaseSetup(options);
 dbm.CheckDatabaseExistsAndCreateDatabase();
 
 app.Run();

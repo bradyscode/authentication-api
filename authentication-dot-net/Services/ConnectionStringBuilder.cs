@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using System.Data.SqlClient;
 
-namespace authentication_dot_net.Middleware
+namespace authentication_dot_net.Services
 {
     public class ConnectionStringBuilder
     {
