@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "authentication-dot-net", "a
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{3812E422-2FCC-48FC-BB1D-8777A4260DC4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "authentication-class-library", "authentication-class-library\authentication-class-library.csproj", "{6A8D3498-95BF-43DA-A85D-D45EE8A37C08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3812E422-2FCC-48FC-BB1D-8777A4260DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3812E422-2FCC-48FC-BB1D-8777A4260DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3812E422-2FCC-48FC-BB1D-8777A4260DC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8D3498-95BF-43DA-A85D-D45EE8A37C08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8D3498-95BF-43DA-A85D-D45EE8A37C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8D3498-95BF-43DA-A85D-D45EE8A37C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8D3498-95BF-43DA-A85D-D45EE8A37C08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
