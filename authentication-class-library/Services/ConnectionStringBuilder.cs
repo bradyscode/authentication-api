@@ -7,9 +7,9 @@ namespace authentication_class_library.Services
     public class ConnectionStringBuilder
     {
 
-        private IOptions<DatabaseOptions> _dbOptions;
+        private DatabaseOptions _dbOptions;
 
-        public ConnectionStringBuilder(IOptions<DatabaseOptions> dbOptions)
+        public ConnectionStringBuilder(DatabaseOptions dbOptions)
         {
             _dbOptions = dbOptions;
         }
@@ -29,11 +29,11 @@ namespace authentication_class_library.Services
 
             // Now that the connection string has been parsed,
             // you can work with individual items.
-            builder.Password = _dbOptions.Value.Password;
-            builder.UserID = _dbOptions.Value.UserId;
-            builder.MultipleActiveResultSets = _dbOptions.Value.MultipleActiveResultSets;
-            builder["Database"] = _dbOptions.Value.Database;
-            builder["Server"] = _dbOptions.Value.Server;
+            builder.Password = _dbOptions.Password;
+            builder.UserID = _dbOptions.UserId;
+            builder.MultipleActiveResultSets = _dbOptions.MultipleActiveResultSets;
+            builder["Database"] = _dbOptions.Database;
+            builder["Server"] = _dbOptions.Server;
             return builder.ConnectionString;
         }
 
@@ -50,11 +50,11 @@ namespace authentication_class_library.Services
 
             // Now that the connection string has been parsed,
             // you can work with individual items.
-            builder.Password = _dbOptions.Value.Password;
-            builder.UserID = _dbOptions.Value.UserId;
-            builder.MultipleActiveResultSets = _dbOptions.Value.MultipleActiveResultSets;
+            builder.Password = _dbOptions.Password;
+            builder.UserID = _dbOptions.UserId;
+            builder.MultipleActiveResultSets = _dbOptions.MultipleActiveResultSets;
             builder["Database"] = null;
-            builder["Server"] = _dbOptions.Value.Server;
+            builder["Server"] = _dbOptions.Server;
             return builder.ConnectionString;
         }
     }

@@ -11,13 +11,13 @@ namespace authentication_class_library.Interfaces.UserInterface
 {
     public class UserInterface : IUserInterface
     {
-        private IOptions<DatabaseOptions> _dbOptions;
+        private DatabaseOptions _dbOptions;
         private ConnectionStringBuilder _connectionStringBuilder;
 
         public UserInterface(IOptions<DatabaseOptions> dbOptions)
         {
-            _dbOptions = dbOptions;
-            _connectionStringBuilder = new ConnectionStringBuilder(dbOptions);
+            _dbOptions = dbOptions.Value;
+            _connectionStringBuilder = new ConnectionStringBuilder(dbOptions.Value);
         }
 
         public async Task<bool> AuthenticateUser(string username, string password)
@@ -120,7 +120,7 @@ namespace authentication_class_library.Interfaces.UserInterface
 
         public bool UsernameExists(string username)
         {
-            using (var connection = new SqlConnection(_dbOptions.Value.Database))
+            using (var connection = new SqlConnection(_connectionStringBuilder.BuildConnectionString()))
             {
                 connection.Open();
 

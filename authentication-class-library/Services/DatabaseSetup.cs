@@ -7,9 +7,9 @@ namespace authentication_class_library.Services
 {
     public class DatabaseSetup
     {
-        private IOptions<DatabaseOptions> _dbOptions;
+        private DatabaseOptions _dbOptions;
 
-        public DatabaseSetup(IOptions<DatabaseOptions> dbOptions)
+        public DatabaseSetup(DatabaseOptions dbOptions)
         {
             _dbOptions = dbOptions;
         }
@@ -23,13 +23,13 @@ namespace authentication_class_library.Services
 
             using (var connection = new SqlConnection(connectionString))
             {
-                var databaseName = _dbOptions.Value.Database;
+                var databaseName = _dbOptions.Database;
                 var tableName = "Users";
 
                 // Check if the database exists
                 if(!DatabaseExists(connectionString, databaseName))
                 {
-                    connection.Execute($"CREATE DATABASE {_dbOptions.Value.Database}");
+                    connection.Execute($"CREATE DATABASE {_dbOptions.Database}");
                 }
 
                 // Check if the table exists
