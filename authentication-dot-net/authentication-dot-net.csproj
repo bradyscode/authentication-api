@@ -20,4 +20,8 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\authentication-class-library\authentication-class-library.csproj" />
+  </ItemGroup>
+
 </Project>
