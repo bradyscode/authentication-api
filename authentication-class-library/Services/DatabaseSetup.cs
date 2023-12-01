@@ -19,7 +19,7 @@ namespace authentication_class_library.Services
         {
             var csb = new ConnectionStringBuilder(_dbOptions);
             var connectionString = csb.BuildConnectionStringNoInitialCatalog();
-            var sqlScriptPath = "create-database-table.sql";
+            //var sqlScriptPath = "create-database-table.sql";
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -36,8 +36,9 @@ namespace authentication_class_library.Services
 
                 if (!TableExists(connectionString,tableName))
                 {
-                    var sqlScriptContent = File.ReadAllText(sqlScriptPath);
-                    connection.Execute(sqlScriptContent);
+                    var SQL_SCRIPT = "USE UsersAuthentication; CREATE TABLE Users (Id INT IDENTITY(1, 1) PRIMARY KEY, Username VARCHAR(50) NOT NULL UNIQUE, Salt VARCHAR(255) NOT NULL, HashValue varbinary(MAX) NOT NULL, Permission INT NOT NULL DEFAULT )";
+                    //var sqlScriptContent = File.ReadAllText(sqlScriptPath);
+                    connection.Execute(SQL_SCRIPT);
                 }
             }
         }
@@ -54,7 +55,7 @@ namespace authentication_class_library.Services
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var result = connection.QuerySingleOrDefault<bool>($"SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = @tableName", new { tableName });
+                var result = connection.QuerySingleOrDefault<bool>($"SELECT EXISTS (SHOW TABLES LIKE '{tableName}');");
                 return result;
             }
         }
