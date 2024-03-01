@@ -21,7 +21,7 @@ jobs:
       with:
         dotnet-version: '6.0.x'
     - name: Change Directory
-      run: cd cd authentication-dot-net
+      run: cd authentication-dot-net
       
     - name: Build
       run: dotnet build --configuration Release
