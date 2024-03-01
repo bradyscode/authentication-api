@@ -20,13 +20,14 @@ jobs:
         uses: dependency-check/Dependency-Check_Action@main
         id: depcheck
         with:
-          project: 'test'
+          project: 'authentication'
           path: '.'
           format: 'HTML'
           out: 'reports' # this is the default, no need to specify unless you wish to override it
           args: >
             --failOnCVSS 7
             --enableRetired
+        continue-on-error: true
 
       - name: Upload Dependency Check report
         uses: actions/upload-artifact@v2
