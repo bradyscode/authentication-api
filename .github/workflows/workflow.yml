@@ -47,7 +47,7 @@ jobs:
         
     - name: Run unit tests
       run: |
-        cd authentication-api/authentication-api
+        cd authentication-api
         dir
         dotnet test authentication-dot-net.sln --no-restore --verbosity normal --collect "XPlat Code Coverage" --no-build
         
