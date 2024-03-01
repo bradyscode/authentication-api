@@ -28,7 +28,7 @@ jobs:
       run: dotnet build authentication-dot-net.sln --configuration Release
 
     - name: Test
-      run: dotnet test authentication-dot-net.sln --collect "XPlat Code Coverage"
+      run: dotnet test authentication-dot-net.sln --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
@@ -40,4 +40,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: test-artifacts
-        path: UnitTests\TestResults\**\coverage.cobertura.xml
+        path: UnitTests\coverage.opencover.xml
