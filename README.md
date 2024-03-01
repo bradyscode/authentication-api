@@ -291,7 +291,7 @@ The password is set by defualt to `A&VeryComplex123Password`, please change this
 
 - Support OpenID Connect (OIDC): Implement OpenID Connect as an identity layer to provide user profile data and claims for personalized experiences.
 
-## Phase 3: Scalability and Performance Optimization
+## Phase 3: Scalability and Performance Optimization -
 
 - Implement caching mechanisms: Utilize caching strategies to improve API response times and reduce database load.
 
