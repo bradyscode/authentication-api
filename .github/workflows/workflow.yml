@@ -46,9 +46,7 @@ jobs:
         path: authentication-dot-net/bin
         
     - name: Run unit tests
-      run: |
-        cd UnitTests
-        dotnet test --no-restore --verbosity normal --collect "XPlat Code Coverage" --no-build
+      run:  dotnet test authentication-dot-net.sln --no-restore --verbosity normal --collect "XPlat Code Coverage" --no-build
         
     - name: Archive unit-test artifacts
       uses: actions/upload-artifact@v2
