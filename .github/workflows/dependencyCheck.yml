@@ -5,15 +5,20 @@ on: [push]
 jobs:
   depchecktest:
     runs-on: ubuntu-latest
-    name: depecheck_test
+    name: dependency-check-test
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build project with Maven
-        run: mvn clean install
-      - name: Depcheck
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --configuration Release
+
+      - name: Run Dependency-Check
         uses: dependency-check/Dependency-Check_Action@main
-        id: Depcheck
+        id: depcheck
         with:
           project: 'test'
           path: '.'
@@ -22,8 +27,9 @@ jobs:
           args: >
             --failOnCVSS 7
             --enableRetired
-      - name: Upload Test results
-        uses: actions/upload-artifact@master
+
+      - name: Upload Dependency Check report
+        uses: actions/upload-artifact@v2
         with:
-           name: Depcheck report
-           path: ${{github.workspace}}/reports
+          name: Depcheck report
+          path: ${{github.workspace}}/reports
