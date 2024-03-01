@@ -28,7 +28,7 @@ jobs:
       run: dotnet build authentication-dot-net.sln --configuration Release
 
     - name: Test
-      run: dotnet test --collect "XPlat Code Coverage"
+      run: dotnet test authentication-dot-net.sln --collect "XPlat Code Coverage"
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
