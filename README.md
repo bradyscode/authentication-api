@@ -1,4 +1,4 @@
-[![Build & Test](https://github.com/bradyscode/authentication-api/actions/workflows/workflow.yml/badge.svg)](https://github.com/bradyscode/authentication-api/actions/workflows/workflow.yml)
+[![Build & Test](https://github.com/bradyscode/authentication-api/actions/workflows/workflow.yml/badge.svg)](https://github.com/bradyscode/authentication-api/actions/workflows/workflow.yml) [![Dependency Check](https://github.com/bradyscode/authentication-api/actions/workflows/dependencyCheck.yml/badge.svg)](https://github.com/bradyscode/authentication-api/actions/workflows/dependencyCheck.yml)
 
 - [Authentication API](#authentication-api)
 - [Authentication](#authentication)
