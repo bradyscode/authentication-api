@@ -27,8 +27,17 @@ jobs:
     - name: Build
       run: dotnet build authentication-dot-net.sln --configuration Release
 
+    - name: Test
+      run: dotnet test authentication-dot-net.sln --collect "XPlat Code Coverage"
+
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
         path: authentication-dot-net/bin
+        
+    - name: Archive unit-test artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-artifacts
+        path: UnitTests\TestResults\**\coverage.cobertura.xml
