@@ -27,29 +27,14 @@ jobs:
     - name: Build
       run: dotnet build authentication-dot-net.sln --configuration Release
 
+    - name: Test
+      run: dotnet test --collect "XPlat Code Coverage"
+
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
         path: authentication-dot-net/bin
-
-        
-  unit-test:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-    - name: Download build artifacts
-      uses: actions/download-artifact@v2
-      with:
-        name: build-artifacts
-        path: authentication-dot-net/bin
-        
-    - name: Run unit tests
-      run: |
-        cd authentication-api
-        dir
-        dotnet test authentication-dot-net.sln --no-restore --verbosity normal --collect "XPlat Code Coverage" --no-build
         
     - name: Archive unit-test artifacts
       uses: actions/upload-artifact@v2
