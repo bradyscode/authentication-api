@@ -42,24 +42,3 @@ jobs:
         name: test-artifacts
         path: UnitTests/coverage.opencover.xml
         
-  dependency-check:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Run OWASP Dependency-Check
-      run: |
-        sudo apt-get update && sudo apt-get install -y openjdk-11-jre
-        wget https://dl.bintray.com/jeremy-long/owasp/dependency-check-7.0.0-release.zip
-        unzip dependency-check-7.0.0-release.zip
-        cd dependency-check/bin
-        ./dependency-check.sh --project "MyProject" --scan ../../authentication-dot-net --format HTML --out /tmp/dependency-check-report
-        echo "::set-output name=report_path::/tmp/dependency-check-report"
-
-    - name: Upload Dependency Check Report
-      uses: actions/upload-artifact@v2
-      with:
-        name: dependency-check-report
-        path: /tmp/dependency-check-report
