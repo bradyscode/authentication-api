@@ -54,11 +54,11 @@ jobs:
         coverage_percentage=$(awk '/^<td>Total<\/td>/ {getline; print substr($2, 1, length($2)-1)}' coverage/index.html)
         echo "Coverage Percentage: $coverage_percentage"
 
-        curl -s -o coverage-badge.svg https://img.shields.io/badge/Coverage-${coverage_percentage}%25-green
-        echo "::set-output name=badge_path::coverage-badge.svg"
+        curl -s -o UnitTests/badge.svg https://img.shields.io/badge/Coverage-${coverage_percentage}%25-green
+        echo "::set-output name=badge_path::UnitTests/badge.svg"
 
     - name: Upload coverage badge
       uses: actions/upload-artifact@v2
       with:
         name: coverage-badge
-        path: ${{ steps.get_coverage.outputs.badge_path }}
+        path: ${{ steps.get_coverage.outputs.badge_path }} # Use correct output name
