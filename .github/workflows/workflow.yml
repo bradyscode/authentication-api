@@ -61,4 +61,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: coverage-badge
-        path: ${{ steps.get_coverage.outputs.badge_path }} # Use correct output name
+        path: UnitTests/badge.svg # Hardcoded path for the coverage badge
