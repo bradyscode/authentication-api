@@ -42,11 +42,13 @@ jobs:
         name: test-artifacts
         path: UnitTests/coverage.opencover.xml
 
+
+
     - name: Extract coverage percentage
       id: extract_coverage
       run: |
-        covered_lines=$(grep -oP '(?<=<SequenceCoverage covered=")[^"]*' UnitTests/coverage.opencover.xml)
-        total_lines=$(grep -oP '(?<=<SequenceCoverage total=")[^"]*' UnitTests/coverage.opencover.xml)
+        covered_lines=$(xmlstarlet sel -t -v "sum(//Class/Summary/SequenceCoverage/@numSequencePoints)" UnitTests/coverage.opencover.xml)
+        total_lines=$(xmlstarlet sel -t -v "sum(//Class/Summary/SequenceCoverage/@coveredSequencePoints)" UnitTests/coverage.opencover.xml)
         coverage_percentage=$(awk "BEGIN { printf \"%.2f\", ($covered_lines / $total_lines) * 100 }")
         echo "::set-output name=coverage_percentage::$coverage_percentage"
 
