@@ -42,32 +42,22 @@ jobs:
         name: test-artifacts
         path: UnitTests/coverage.opencover.xml
 
-
-
-    - name: Generate and upload coverage badge
+    - name: Extract coverage percentage
+      id: extract_coverage
       run: |
-        # Install reportgenerator
-        dotnet tool install -g dotnet-reportgenerator-globaltool
-        
-        # Generate HTML report from OpenCover XML
-        reportgenerator "-reports:UnitTests/coverage.opencover.xml" "-targetdir:UnitTests" "-reporttypes:Html"
+        covered_lines=$(grep -oP '(?<=<SequenceCoverage covered=")[^"]*' UnitTests/coverage.opencover.xml)
+        total_lines=$(grep -oP '(?<=<SequenceCoverage total=")[^"]*' UnitTests/coverage.opencover.xml)
+        coverage_percentage=$(awk "BEGIN { printf \"%.2f\", ($covered_lines / $total_lines) * 100 }")
+        echo "::set-output name=coverage_percentage::$coverage_percentage"
 
-        # Extract coverage percentage from OpenCover XML directly
-        coverage_percentage=$(xmllint --xpath "sum(//Summary/@numSequencePoints)" UnitTests/coverage.opencover.xml)
-        covered_percentage=$(xmllint --xpath "sum(//Summary/@visitedSequencePoints)" UnitTests/coverage.opencover.xml)
-        coverage_percentage=$(awk "BEGIN { printf \"%.2f\", ($covered_percentage / $coverage_percentage) * 100 }")
-        echo "Coverage Percentage: $coverage_percentage%"
-
-        # Generate badge URL
-        badge_url="https://img.shields.io/badge/Coverage-${coverage_percentage}%25-green"
-        echo "Badge URL: $badge_url"
-
-        # Download badge image
-        curl -s -o coverage-badge.svg $badge_url
+    - name: Generate coverage badge
+      run: |
+        coverage_percentage=${{ steps.extract_coverage.outputs.coverage_percentage }}
+        curl -s -o coverage-badge.svg https://img.shields.io/badge/Coverage-${coverage_percentage}%25-green
+        echo "::set-output name=badge_path::coverage-badge.svg"
 
     - name: Upload coverage badge
       uses: actions/upload-artifact@v2
       with:
         name: coverage-badge
-        path: coverage-badge.svg
-        
+        path: ${{ steps.get_coverage.outputs.badge_path }}
