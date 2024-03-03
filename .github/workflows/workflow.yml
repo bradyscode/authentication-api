@@ -42,20 +42,32 @@ jobs:
         name: test-artifacts
         path: UnitTests/coverage.opencover.xml
 
+
+
     - name: Generate and upload coverage badge
       run: |
+        # Install reportgenerator
         dotnet tool install -g dotnet-reportgenerator-globaltool
-        reportgenerator "-reports:UnitTests/coverage.opencover.xml" "-targetdir:UnitTests" "-reporttypes:HtmlInline_AzurePipelines;Badges"
+        
+        # Generate HTML report from OpenCover XML
+        reportgenerator "-reports:UnitTests/coverage.opencover.xml" "-targetdir:UnitTests" "-reporttypes:Html"
 
-        coverage_percentage=$(awk '/^<td>Total<\/td>/ {getline; print substr($2, 1, length($2)-1)}' UnitTests/Summary.html)
-        echo "Coverage Percentage: $coverage_percentage"
+        # Extract coverage percentage from OpenCover XML directly
+        coverage_percentage=$(xmllint --xpath "sum(//Summary/@numSequencePoints)" UnitTests/coverage.opencover.xml)
+        covered_percentage=$(xmllint --xpath "sum(//Summary/@visitedSequencePoints)" UnitTests/coverage.opencover.xml)
+        coverage_percentage=$(awk "BEGIN { printf \"%.2f\", ($covered_percentage / $coverage_percentage) * 100 }")
+        echo "Coverage Percentage: $coverage_percentage%"
 
-        curl -s -o coverage-badge.svg https://img.shields.io/badge/Coverage-${coverage_percentage}%25-green
-        echo "::set-output name=badge_path::coverage-badge.svg"
+        # Generate badge URL
+        badge_url="https://img.shields.io/badge/Coverage-${coverage_percentage}%25-green"
+        echo "Badge URL: $badge_url"
+
+        # Download badge image
+        curl -s -o coverage-badge.svg $badge_url
 
     - name: Upload coverage badge
       uses: actions/upload-artifact@v2
       with:
         name: coverage-badge
-        path: ${{ steps.get_coverage_percentage.outputs.badge_path }}
+        path: coverage-badge.svg
         
