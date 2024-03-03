@@ -51,7 +51,7 @@ jobs:
 
     - name: Generate and upload coverage badge
       run: |
-        coverage_percentage=$(awk '/^<td>Total<\/td>/ {getline; print substr($2, 1, length($2)-1)}' coverage/Summary.html)
+        coverage_percentage=$(awk '/^<td>Total<\/td>/ {getline; print substr($2, 1, length($2)-1)}' coverage/index.html)
         echo "Coverage Percentage: $coverage_percentage"
 
         curl -s -o coverage-badge.svg https://img.shields.io/badge/Coverage-${coverage_percentage}%25-green
