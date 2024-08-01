@@ -46,41 +46,14 @@ namespace authentication_dot_net.Controllers
         [HttpPost("/AuthenticateUser")]
         public async Task<IActionResult> AuthenticateUserAsync([FromBody]UserDTO user)
         {
+            ITokenHandler tokenHandler = new Models.TokenHandler(_configuration);
             var response = Unauthorized();
 
             var userAuthorized = await _userInterface.AuthenticateUser(user.Username, user.Password);
             if (userAuthorized)
             {
-                var issuer = _configuration["Jwt:Issuer"];
-                var audience = _configuration["Jwt:Audience"];
-                var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-                var signingCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha512Signature
-                );
-
-                var subject = new ClaimsIdentity(new[]
-                {
-                        new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-                        new Claim(JwtRegisteredClaimNames.Email, user.Username),
-                    });
-
-                var expires = DateTime.UtcNow.AddMinutes(10);
-
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = subject,
-                    Expires = expires,
-                    Issuer = issuer,
-                    Audience = audience,
-                    SigningCredentials = signingCredentials
-                };
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var jwtToken = tokenHandler.WriteToken(token);
-
-                return Ok(jwtToken);
+                var token = tokenHandler.GenerateToken(user);
+                return Ok(token);
             }
             return response;
         }
