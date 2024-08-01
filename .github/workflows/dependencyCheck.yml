@@ -1,0 +1,36 @@
+name: Dependency Check
+
+on: [push]
+
+jobs:
+  depchecktest:
+    runs-on: ubuntu-latest
+    name: dependency-check-test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Restore dependencies
+        run: dotnet restore authentication-dot-net.sln
+
+      - name: Build project
+        run: dotnet build authentication-dot-net.sln --configuration Release
+
+      - name: Run Dependency-Check
+        uses: dependency-check/Dependency-Check_Action@main
+        id: depcheck
+        with:
+          project: 'authentication'
+          path: '.'
+          format: 'HTML'
+          out: 'reports' # this is the default, no need to specify unless you wish to override it
+          args: >
+            --failOnCVSS 7
+            --enableRetired
+        continue-on-error: true
+
+      - name: Upload Dependency Check report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Depcheck report
+          path: ${{github.workspace}}/reports

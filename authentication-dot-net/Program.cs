@@ -1,7 +1,9 @@
 using authentication_dot_net.Interfaces.UserInterface;
 using authentication_dot_net.Models;
+using authentication_dot_net.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
@@ -15,7 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserInterface, UserInterface>();
-builder.Services.AddOptions<DatabaseOptions>().Bind(builder.Configuration.GetSection("ConnectionStrings"));
+builder.Services.AddOptions<DatabaseOptions>().Bind(builder.Configuration.GetSection("ConnectionStrings:Database"));
 
 //JWT Authentication
 builder.Services.AddAuthentication(options =>
@@ -73,5 +75,8 @@ IWebHostEnvironment environment = app.Environment;
 //end jwt auth stuff
 
 app.MapControllers();
+var options = app.Services.GetService<IOptions<DatabaseOptions>>();
+var dbm = new DatabaseSetup(options);
+dbm.CheckDatabaseExistsAndCreateDatabase();
 
 app.Run();

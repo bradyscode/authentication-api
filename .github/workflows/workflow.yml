@@ -1,0 +1,43 @@
+name: Build & Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Restore Dependencies
+      run: dotnet restore authentication-dot-net.sln
+      
+    - name: Build
+      run: dotnet build authentication-dot-net.sln --configuration Release
+
+    - name: Test
+      run: dotnet test authentication-dot-net.sln --no-restore --verbosity minimal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifacts
+        path: authentication-dot-net/bin
+        
+    - name: Archive unit-test artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-artifacts
+        path: UnitTests/coverage.opencover.xml
