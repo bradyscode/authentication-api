@@ -1,13 +1,8 @@
 ﻿using authentication_dot_net.Interfaces;
 using authentication_dot_net.Interfaces.UserInterface;
 using authentication_dot_net.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace authentication_dot_net.Controllers
 {
